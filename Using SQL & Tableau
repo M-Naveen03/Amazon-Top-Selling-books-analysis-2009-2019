@@ -1,0 +1,97 @@
+# Introduction:
+    Hi Everyone, this case study is about analysing Amazon's Top selling books in the year 2009 to 2019 for my Google Data Analytics Course. 
+   please review this code and cooment if anything wrong or where the improvement needed.
+
+# Scenario:
+    As a junior data analyst working for a business intelligence consultant. I choose the topic from my course about Amazons top selling books, ask
+   the right questions, identify a fresh dataset and ensure its integrity, conduct analysis, create compelling data visualizations, and
+   prepare a presentation.
+
+## 1.Ask Phase:
+     *Business task* - The Task is about analysing the data about books sell's between 2009 and 2019. to improve the business demand and improve the stocks etc.
+    
+     *Data sources* - The data taken for this case study is taken from [kaggle](https://www.kaggle.com/sootersaalu/amazon-top-50-bestselling-books-2009-2019).
+    
+     *Stake Holders* - My boss & Client, Research team for sales.
+    
+    
+## 2. Prepare Phase:
+      *Data Location* - https://www.kaggle.com/datasets/sootersaalu/amazon-top-50-bestselling-books-2009-2019
+     
+      *License* - CCO:Public Domain from kaggle.
+     
+      *Data credibility* - Dataset on Amazon's Top 50 bestselling books from 2009 to 2019. Contains 550 books, 
+                          data has been categorized into fiction and non-fiction using Goodreads.
+     
+   
+## 3.Process Phase:
+     *Tools used*- I choose SQL to look into the data and clean the data for testing my SQL skills and 
+                    Tableau for visualising the insights from the data i manipulated.
+      
+-- After loading the datas, First check the datas for uniqueness.
+SELECT
+ DISTINCT Genre --to check how many genre
+  FROM `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+
+SELECT DISTINCT Year --year 2009 to 2019
+  FROM `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+
+SELECT DISTINCT Name --351 Names
+  FROM `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+
+SELECT DISTINCT Author --248 Author Names
+  FROM `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+  ORDER BY Author
+  
+  
+
+-- Update wrongly entered names (American Psychiatric Association,George R.R. Martin,J.K. Rowling )
+
+UPDATE `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+SET Author = 'American Psychological Association'
+WHERE Author = 'American Psychiatric Association'
+ 
+UPDATE `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+SET Author = 'George R.R. Martin'
+WHERE Author = 'George R. R. Martin'
+
+UPDATE `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+SET Author = 'J.K.Rowling'
+WHERE Author = 'J. K. Rowling'
+
+## 4.Analyze Phase:
+-- During analysis phase, store the results in separate cvs files for using it in tableau.
+
+--To view User rating for separate books with authors.
+SELECT DISTINCT Name, Author, User_Rating
+FROM `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+ORDER BY User_Rating DESC
+
+-- To view the reviews count for separate books.
+SELECT DISTINCT Name, Reviews
+FROM `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+ORDER BY Reviews DESC
+
+--To count genre
+SELECT Genre, COUNT(Genre)
+FROM `proven-octane-371516.Amazon_Top_Selling_books.Booklist`
+GROUP BY Genre
+
+
+## 5.Share Phase:
+     From analysis process we collect tha data in csv files. 
+     now, we use those files to work in tableau to find out the data we need by visualzing it in Tableau public.
+     
+     
+## 6.Act Phase:
+     From the viz. files we came to know about certain points that helps to impove the business. they are
+     *1.* The Ficion genres books soled more than Non Fiction books. so company should focus on Fictional category more than Non Fictional.
+     *2.* From ratings, we came to know about the interest of people. Non Fictional books receives high Ratings.
+     *3.* The Reviews shows the author with most sales adn popular books.
+     
+     these points help the company to load stocks with certain types of books for the following years.
+     
+     
+     
+     
+
